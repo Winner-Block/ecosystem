@@ -318,12 +318,6 @@ contract LiquidityManagedToken is
         // Swap half of the tokens for ETH and get the actual amount of ETH received
         uint256 ethReceived = swapTokensForEth(tokensToSwap);
 
-        /* // Update tokensToAdd to reflect the current balance after the swap
-        uint256 updatedTokenBalance = WBlockToken.balanceOf(address(this));
-        tokensToAdd = updatedTokenBalance > tokensToAdd
-            ? tokensToAdd
-            : updatedTokenBalance; */
-
         uint256 ethAmountNeeded = calculateOptimalEthAmount(tokensToAdd);
 
         // Apply the buffer to the ETH amount needed
