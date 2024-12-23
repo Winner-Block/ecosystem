@@ -57,7 +57,7 @@ Ensure you have the Solidity compiler installed, then compile using Hardhat:
 npx hardhat compile
 ```
 
-*Note: Tests are currently under development and will be included in future updates.*
+*Note: Tests are currently under development and will be included in future updates. 🕐*
 
 ---
 
