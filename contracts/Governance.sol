@@ -659,12 +659,7 @@ contract GovernanceContract is
             } else {
                 consensusContract.revokeConsensusMemberRole(member);
             }
-        }
-        /*  else if (proposal.proposalType == TYPE_EMERGENCY_RESET_PROPOSAL) {
-            // Logic for emergency reset proposals
-            consensusContract.revokeAllConsensusMembers();
-        }  */
-        else if (proposal.proposalType == TYPE_SETTING_UPDATE_PROPOSAL) {
+        } else if (proposal.proposalType == TYPE_SETTING_UPDATE_PROPOSAL) {
             // Logic for setting update proposals
             (GovernanceSetting setting, uint256 proposedValue) = abi.decode(
                 proposal.data,
