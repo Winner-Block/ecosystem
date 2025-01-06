@@ -123,18 +123,18 @@ contract ConsensusContract is
     /// @notice Initializes the contract and sets the necessary parameters
     /// @dev This function sets up access control roles, initializes key variables, and assigns the founder to deployer.
     /// @param _tokenAddress The address of the token contract used in the system
-    function initialize(address _tokenAddress) external initializer {
+    function initialize(address _tokenAddress, address _founder) external initializer {
         __AccessControl_init();
         __ReentrancyGuard_init();
         __UUPSUpgradeable_init();
 
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(CONSENSUS_MEMBER_ROLE, msg.sender);
+        _grantRole(DEFAULT_ADMIN_ROLE, _founder);
+        _grantRole(CONSENSUS_MEMBER_ROLE, _founder);
         tokenContract = IWBlockToken(_tokenAddress);
         consensusMemberCount = 1;
         PURGE_TRIGGER_COUNT = 50;
         PROPOSALS_TO_KEEP = 10;
-        founder = msg.sender;
+        founder = _founder;
 
         nextPurgeThreshold = PURGE_TRIGGER_COUNT; // Initialize here
 
