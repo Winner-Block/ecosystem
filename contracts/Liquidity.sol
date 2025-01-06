@@ -79,7 +79,8 @@ contract LiquidityManagedToken is
     /// @param _uniswapRouterContract The address of the Uniswap V2 Router contract
     function initialize(
         address _tokenAddress,
-        address _uniswapRouterContract
+        address _uniswapRouterContract,
+        address _founder
     ) external initializer {
         if (_tokenAddress == address(0)) {
             revert InvalidTokenAddress();
@@ -93,7 +94,7 @@ contract LiquidityManagedToken is
 
         tokenContractAddress = _tokenAddress;
         WBlockToken = IWBlockToken(_tokenAddress);
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(DEFAULT_ADMIN_ROLE, _founder);
         setRouterAddress(_uniswapRouterContract);
 
         emit Initialized(_tokenAddress, _uniswapRouterContract);
@@ -229,8 +230,8 @@ contract LiquidityManagedToken is
         uint256 ethBalance = address(this).balance;
 
         // Define the required amounts for tokens and ETH
-        uint256 requiredTokenAmount = 2_180_486_321 *
-            (10 ** WBlockToken.decimals());
+        uint256 requiredTokenAmount = 2_180_486_321 * (10 ** WBlockToken.decimals());
+
         uint256 requiredEthAmount = 26.44 ether;
 
         if (tokenBalance < requiredTokenAmount) {
@@ -369,7 +370,7 @@ contract LiquidityManagedToken is
             block.timestamp
         );
 
-        uint256 actualEthReceived = amounts[1]; // Assuming path[1] is ETH
+        uint256 actualEthReceived = amounts[1]; // Path[1] is ETH
 
         // Calculate the amount of ETH received from the swap
         uint256 ethReceived = address(this).balance - initialBalance;
@@ -469,7 +470,7 @@ contract LiquidityManagedToken is
             block.timestamp
         );
 
-        uint256 actualTokensReceived = amounts[1]; // Assuming path[1] is the token
+        uint256 actualTokensReceived = amounts[1]; // Path[1] is the token
 
         uint256 tokensReceived = WBlockToken.balanceOf(address(this)) -
             initialTokenBalance;
