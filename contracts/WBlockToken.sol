@@ -93,9 +93,9 @@ contract WBlockToken is
         _settings[GovernanceSetting.CommunityTax] = 500; // 5%; Community Tax (6): 0.5% to 5% of game's earnings (in basis points)
         _settings[GovernanceSetting.DeveloperTax] = 500; // 5%; Developer Tax (7): Up to 5% of game's winnings (in basis points)
         _settings[GovernanceSetting.RewardThreshold] = 1000000; // 1M tokens; Reward Threshold (8): 1M to 1B available tokens (full token unit)
-        _settings[GovernanceSetting.CooldownMinBlock] = 30000; // 30k Blocks; Cooldown Min Block (9): 10 to 100000 blocks
+        _settings[GovernanceSetting.CooldownMinBlock] = 30000; // 30k Blocks (about 1 day on bsc); Cooldown Min Block (9): 10 to 100000 blocks
         _settings[GovernanceSetting.LiquidityThreshold] = 1000000; // 1M tokens; Liquidity Threshold (10): 1M to 1B available tokens (full token unit)
-        _settings[GovernanceSetting.VotingPeriod] = 100; // 100 blocks; Voting Period (11): 10 to 100M blocks
+        _settings[GovernanceSetting.VotingPeriod] = 900000; // 900k blocks (about 30 days on bsc); Voting Period (11): 10 to 100M blocks
 
         emit DefaultSettingsSet();
     }
@@ -422,7 +422,7 @@ contract WBlockToken is
             revert DevFeeExceedsMax(devFee, developerTax);
         }
 
-        uint256 communityShare = (totalReward * communityTax) / 10000; // assuming tax values are in basis points
+        uint256 communityShare = (totalReward * communityTax) / 10000; // tax values are in basis points
         uint256 developerShare = (totalReward * devFee) / 10000; // calculating developer share based on devFee
         uint256 winnerReward = totalReward - communityShare - developerShare;
 
